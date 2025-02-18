@@ -100,5 +100,59 @@ public class Algorithms {
         return arr;
     }
 
+    int gap = array.length / 2;
+
+    // Сортировка Шелла
+    public static int[] shellSort(int[] arr) {
+        int[] array = arr;
+        while (gap >= 1) {
+            for (int right = 0; right < array.length; right++) {
+               for (int c = right - gap; c >= 0; c -= gap) {
+                   if (array[c] > array[c + gap]) {
+                       swap(array, c, c + gap);
+                   }
+                }
+            }
+    
+            gap = gap / 2;
+        }
+        return array;
+    }
+
+    public static void quickSort(int[] source, int leftBorder, int rightBorder) {
+        int leftMarker = leftBorder;
+        int rightMarker = rightBorder;
+        int pivot = source[(leftMarker + rightMarker) / 2];
+        do {
+            
+            while (source[leftMarker] < pivot) {
+                leftMarker++;
+            }
+            
+            while (source[rightMarker] > pivot) {
+                rightMarker--;
+            }
+            
+            if (leftMarker <= rightMarker) {
+                
+                if (leftMarker < rightMarker) {
+                    int tmp = source[leftMarker];
+                    source[leftMarker] = source[rightMarker];
+                    source[rightMarker] = tmp;
+                }
+                
+                leftMarker++;
+                rightMarker--;
+            }
+        } while (leftMarker <= rightMarker);
+
+        
+        if (leftMarker < rightBorder) {
+            quickSort(source, leftMarker, rightBorder);
+        }
+        if (leftBorder < rightMarker) {
+            quickSort(source, leftBorder, rightMarker);
+        }
+    }
 
 }
